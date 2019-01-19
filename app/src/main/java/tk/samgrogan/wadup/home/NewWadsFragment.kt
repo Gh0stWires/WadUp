@@ -5,10 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_new_wads.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import tk.samgrogan.wadup.api.models.Wad
 
 
 class NewWadsFragment : Fragment() {
@@ -26,6 +29,17 @@ class NewWadsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //wadModel.getWadList().observe(this, Observer)
+        (activity as AppCompatActivity).apply {
+            supportActionBar?.apply {
+                setDisplayHomeAsUpEnabled(false)
+                this.title = "Wad Up"
+            }
+        }
+        wadRecycler.layoutManager = LinearLayoutManager(context)
+        wadRecycler.adapter = NewWadRecyclerAdapter {
+            //val action = NewWadsFragmentDirections.actionNewWadsFragmentToWadDetailFragment(it.id.toString())
+            NavHostFragment.findNavController(this).navigate(NewWadsFragmentDirections.ActionNewWadsFragmentToWadDetailFragment(it.id.toString()))
+        }
         observe()
 
 
@@ -36,10 +50,7 @@ class NewWadsFragment : Fragment() {
 
         wadModel.getWadList().observe(this,
             androidx.lifecycle.Observer<Wad> {
-                wadRecycler.layoutManager = LinearLayoutManager(context)
-                wadRecycler.adapter = NewWadRecyclerAdapter(it.content.file) {
-
-                }
+                (wadRecycler.adapter as NewWadRecyclerAdapter).swapData(it.content.file)
             })
 
 

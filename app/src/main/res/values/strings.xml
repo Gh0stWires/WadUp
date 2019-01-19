@@ -6,4 +6,14 @@
     <string name="general_new">New</string>
     <string name="voted">Voted</string>
     <string name="search">Search</string>
+    <string name="detail_author">author:</string>
+    <string name="detail_description">description:</string>
+    <string name="detai_filename">filename</string>
+    <string name="detail_size">size:</string>
+    <string name="detail_date">date:</string>
+    <string name="details_credits">credits:</string>
+    <string name="detail_base">base:</string>
+    <string name="detail_buildtime">buildtime:</string>
+    <string name="details_editor_s">editor(s):</string>
+    <string name="detail_bugs">bugs:</string>
 </resources>

@@ -5,5 +5,19 @@
             app:startDestination="@id/newWadsFragment">
 
     <fragment android:id="@+id/newWadsFragment" android:name="tk.samgrogan.wadup.home.NewWadsFragment"
-              android:label="fragment_new_wads" tools:layout="@layout/fragment_new_wads"/>
+              android:label="fragment_new_wads" tools:layout="@layout/fragment_new_wads">
+        <action android:id="@+id/action_newWadsFragment_to_wadDetailFragment" app:destination="@id/wadDetailFragment"
+                app:enterAnim="@anim/slide_in" app:exitAnim="@anim/slide_out"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right">
+            <argument android:name="id" app:argType="string"/>
+        </action>
+    </fragment>
+    <fragment android:id="@+id/wadDetailFragment" android:name="tk.samgrogan.wadup.detail.WadDetailFragment"
+              android:label="fragment_wad_detail" tools:layout="@layout/fragment_wad_detail">
+        <action android:id="@+id/action_wadDetailFragment_to_newWadsFragment" app:destination="@id/newWadsFragment"
+                app:enterAnim="@anim/slide_in_left" app:exitAnim="@anim/slide_out"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_in_left"/>
+    </fragment>
 </navigation>
