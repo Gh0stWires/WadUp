@@ -3,7 +3,7 @@ package tk.samgrogan.wadup
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import tk.samgrogan.wadup.home.NewWad
+import tk.samgrogan.wadup.api.NewWad
 
 object DataModule {
 

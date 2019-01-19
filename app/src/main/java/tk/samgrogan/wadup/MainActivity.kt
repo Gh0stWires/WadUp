@@ -1,6 +1,7 @@
 package tk.samgrogan.wadup
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -16,9 +17,29 @@ class MainActivity : AppCompatActivity() {
         setupNav()
     }
 
+    override fun onSupportNavigateUp()
+            = findNavController(R.id.nav_host_fragment).popBackStack()
+
     private fun setupNav() {
         val navController = findNavController(R.id.nav_host_fragment)
-        findViewById<BottomNavigationView>(R.id.bottom_nav)
+        findViewById<BottomNavigationView>(R.id.bottomNav)
             .setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.newWadsFragment -> showBottomNav()
+                else -> hideBottomNav()
+            }
+        }
+    }
+
+    private fun showBottomNav() {
+        bottomNav.visibility = View.VISIBLE
+        fang.visibility = View.VISIBLE
+    }
+
+    private fun hideBottomNav() {
+        bottomNav.visibility = View.GONE
+        fang.visibility = View.GONE
     }
 }

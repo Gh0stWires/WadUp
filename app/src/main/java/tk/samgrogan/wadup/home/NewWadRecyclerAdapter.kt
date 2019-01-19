@@ -6,11 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.wad_item.view.*
 import tk.samgrogan.wadup.R
+import tk.samgrogan.wadup.api.models.Wad
 
-class NewWadRecyclerAdapter(var wads: List<Wad.Content.File>, val listener: (File) -> Unit): RecyclerView.Adapter<NewWadRecyclerAdapter.ViewHolder>() {
+class NewWadRecyclerAdapter(val listener: (Wad.Content.File) -> Unit): RecyclerView.Adapter<NewWadRecyclerAdapter.ViewHolder>() {
 
+    var wads: List<Wad.Content.File> = listOf()
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemView.setOnClickListener { listener }
+        holder.itemView.setOnClickListener { listener(wads[position]) }
         holder.title.text = wads[position].title
         holder.author.text = wads[position].author
         holder.description.text = wads[position].description

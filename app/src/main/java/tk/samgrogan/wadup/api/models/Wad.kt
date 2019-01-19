@@ -1,4 +1,4 @@
-package tk.samgrogan.wadup.home
+package tk.samgrogan.wadup.api.models
 
 import com.squareup.moshi.Json
 

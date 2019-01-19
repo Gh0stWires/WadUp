@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#D50000</color>
     <color name="colorAccent">#DD2C00</color>
     <color name="transparent">#00DD2C00</color>
+    <color name="soft_black">#202020</color>
+    <color name="soft_red">#523434</color>
+    <color name="white">#fff</color>
 </resources>

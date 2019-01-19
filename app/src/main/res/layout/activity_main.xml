@@ -30,6 +30,7 @@
     <ImageView android:layout_width="50dp"
                android:layout_height="50dp"
                android:elevation="5dp"
+               android:id="@+id/fang"
                android:src="@drawable/fangleft"
                android:background="@color/transparent"
                app:layout_constraintTop_toBottomOf="@+id/toolbar" app:layout_constraintStart_toStartOf="parent"/>
@@ -41,7 +42,7 @@
             app:navGraph="@navigation/nav_graph"
             app:defaultNavHost="true"
             android:id="@+id/nav_host_fragment"
-            app:layout_constraintBottom_toTopOf="@id/bottom_nav"
+            app:layout_constraintBottom_toTopOf="@id/bottomNav"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -49,9 +50,11 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/bottom_nav"
-            android:background="#fff"
+            android:id="@+id/bottomNav"
+            android:background="@color/colorPrimary"
             app:menu="@menu/menu_bottom_nav"
+            app:itemIconTint="@drawable/bottom_nav_selectors"
+            app:itemTextColor="@drawable/bottom_nav_selectors"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
