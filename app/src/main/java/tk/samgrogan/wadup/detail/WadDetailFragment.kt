@@ -33,18 +33,20 @@ class WadDetailFragment : Fragment() {
                 this.title = "wad detail"
             }
         }
+        progress.visibility = View.VISIBLE
         observe()
     }
 
     fun observe() {
         detailModel.getWadDetails(arguments?.getString("id")).observe(this, Observer {
             detailSetup(it)
+            progress.visibility = View.GONE
         })
     }
 
     fun detailSetup(wad: WadDetail) {
         wad.content.let {
-            title.text = it.title
+            titleDetail.text = it.title
             detailItem.add(DetailItem("filename:", it.filename))
             detailItem.add(DetailItem("author:", it.author))
             detailItem.add(DetailItem("url:", it.idgamesurl))

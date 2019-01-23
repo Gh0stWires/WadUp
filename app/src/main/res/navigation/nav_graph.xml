@@ -19,5 +19,17 @@
                 app:enterAnim="@anim/slide_in_left" app:exitAnim="@anim/slide_out"
                 app:popEnterAnim="@anim/slide_in_left"
                 app:popExitAnim="@anim/slide_in_left"/>
+        <action android:id="@+id/action_wadDetailFragment_to_votedFragment" app:destination="@id/votedFragment"
+                app:enterAnim="@anim/slide_in_left" app:exitAnim="@anim/slide_out"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_in_left"/>
+    </fragment>
+    <fragment android:id="@+id/votedFragment" android:name="tk.samgrogan.wadup.votes.VotedFragment"
+              android:label="fragment_voted" tools:layout="@layout/fragment_voted">
+        <action android:id="@+id/action_votedFragment_to_wadDetailFragment" app:destination="@id/wadDetailFragment"
+                app:enterAnim="@anim/slide_in" app:exitAnim="@anim/slide_out" app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right">
+            <argument android:name="id" app:argType="string"/>
+        </action>
     </fragment>
 </navigation>

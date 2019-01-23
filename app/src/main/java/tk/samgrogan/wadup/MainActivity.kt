@@ -27,7 +27,10 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.newWadsFragment -> showBottomNav()
+                R.id.newWadsFragment -> {
+                    showBottomNav()
+                }
+                R.id.votedFragment -> showBottomNav()
                 else -> hideBottomNav()
             }
         }
@@ -42,4 +45,6 @@ class MainActivity : AppCompatActivity() {
         bottomNav.visibility = View.GONE
         fang.visibility = View.GONE
     }
+
+
 }
