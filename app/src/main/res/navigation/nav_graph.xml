@@ -23,12 +23,32 @@
                 app:enterAnim="@anim/slide_in_left" app:exitAnim="@anim/slide_out"
                 app:popEnterAnim="@anim/slide_in_left"
                 app:popExitAnim="@anim/slide_in_left"/>
+        <action
+                android:id="@+id/action_wadDetailFragment_to_searchFragment"
+                app:destination="@id/searchFragment"
+                app:enterAnim="@anim/slide_in_left"
+                app:exitAnim="@anim/slide_out"
+                />
     </fragment>
     <fragment android:id="@+id/votedFragment" android:name="tk.samgrogan.wadup.votes.VotedFragment"
               android:label="fragment_voted" tools:layout="@layout/fragment_voted">
         <action android:id="@+id/action_votedFragment_to_wadDetailFragment" app:destination="@id/wadDetailFragment"
                 app:enterAnim="@anim/slide_in" app:exitAnim="@anim/slide_out" app:popEnterAnim="@anim/slide_in_left"
                 app:popExitAnim="@anim/slide_out_right">
+            <argument android:name="id" app:argType="string"/>
+        </action>
+    </fragment>
+    <fragment
+            android:id="@+id/searchFragment"
+            android:name="tk.samgrogan.wadup.search.SearchFragment"
+            android:label="fragment_search"
+            tools:layout="@layout/fragment_search"
+            >
+        <action
+                android:id="@+id/action_searchFragment_to_wadDetailFragment"
+                app:destination="@id/wadDetailFragment"
+                app:enterAnim="@anim/slide_in"
+                app:exitAnim="@anim/slide_out">
             <argument android:name="id" app:argType="string"/>
         </action>
     </fragment>

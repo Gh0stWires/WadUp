@@ -3,6 +3,7 @@ package tk.samgrogan.wadup.api
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
+import tk.samgrogan.wadup.api.models.SearchWad
 import tk.samgrogan.wadup.api.models.Wad
 import tk.samgrogan.wadup.api.models.WadDetail
 import tk.samgrogan.wadup.api.models.WadVotes
@@ -16,5 +17,8 @@ interface NewWadService {
 
     @GET("api.php?action=latestvotes&limit=10&out=json")
     fun getHighestVotes(): Call<WadVotes>
+
+    @GET("api.php?action=search")
+    fun searchWads(@Query("query") query: String, @Query("type") type: String = "title", @Query("sort") sort: String = "rating", @Query("out") out: String = "json" ): Call<SearchWad>
 }
 

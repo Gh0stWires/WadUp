@@ -2,6 +2,7 @@ package tk.samgrogan.wadup.home
 
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import tk.samgrogan.wadup.api.models.Wad
 
 class NewWadsFragment : Fragment() {
     val wadModel: NewWadViewModel by viewModel()
+    var listState: Parcelable? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -25,6 +27,9 @@ class NewWadsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        if (listState != null) {
+            wadRecycler.layoutManager?.onRestoreInstanceState(listState)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,6 +51,19 @@ class NewWadsFragment : Fragment() {
 
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        listState = wadRecycler.layoutManager?.onSaveInstanceState()
+        outState.putParcelable(LIST_STATE, listState)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if (savedInstanceState != null) {
+            listState = savedInstanceState.getParcelable(LIST_STATE)
+        }
+    }
+
     fun observe() {
 
         wadModel.getWadList().observe(this,
@@ -57,4 +75,7 @@ class NewWadsFragment : Fragment() {
     }
 
 
+    companion object {
+        val LIST_STATE = "list-state"
+    }
 }

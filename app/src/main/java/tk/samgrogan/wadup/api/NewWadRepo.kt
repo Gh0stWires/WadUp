@@ -6,6 +6,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
+import tk.samgrogan.wadup.api.models.SearchWad
 import tk.samgrogan.wadup.api.models.Wad
 import tk.samgrogan.wadup.api.models.WadDetail
 import tk.samgrogan.wadup.api.models.WadVotes
@@ -15,11 +16,28 @@ interface NewWadRepo {
     fun getNewWads(): LiveData<Wad>
     fun getWadDetails(id: String?): LiveData<WadDetail>
     fun getHighestVoted(): LiveData<WadVotes>
+    fun searchWads(query: String): LiveData<SearchWad>
 }
 
 class NewWad(private var retrofit: Retrofit) : NewWadRepo {
 
     private var api = retrofit.create(NewWadService::class.java)
+
+    override fun searchWads(query: String): LiveData<SearchWad> {
+        val data = MutableLiveData<SearchWad>()
+
+        api.searchWads(query).enqueue(object: Callback<SearchWad> {
+            override fun onFailure(call: Call<SearchWad>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<SearchWad>, response: Response<SearchWad>) {
+                data.value = response.body()
+            }
+
+        })
+        return data
+    }
 
     override fun getHighestVoted(): LiveData<WadVotes> {
         val data = MutableLiveData<WadVotes>()

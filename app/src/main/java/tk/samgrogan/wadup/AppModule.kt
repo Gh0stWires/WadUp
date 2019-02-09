@@ -4,6 +4,7 @@ import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import tk.samgrogan.wadup.detail.WadDetailViewModel
 import tk.samgrogan.wadup.home.NewWadViewModel
+import tk.samgrogan.wadup.search.SearchViewModel
 import tk.samgrogan.wadup.votes.VotedViewModel
 
 object AppModules {
@@ -19,5 +20,9 @@ object AppModules {
         viewModel { VotedViewModel(get()) }
     }
 
-    fun all() = DataModule.all() + listOf(newWadViewModel, wadDetailViewModel, votedViewModel)
+    private val searchViewModel = module {
+        viewModel { SearchViewModel(get())}
+    }
+
+    fun all() = DataModule.all() + listOf(newWadViewModel, wadDetailViewModel, votedViewModel, searchViewModel)
 }
