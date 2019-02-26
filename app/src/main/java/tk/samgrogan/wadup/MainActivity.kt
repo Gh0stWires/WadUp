@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import tk.samgrogan.wadup.common.hideKeyboard
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,10 +28,12 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.newWadsFragment -> {
+                R.id.newWadsFragment,
+                R.id.votedFragment,
+                R.id.searchFragment -> {
                     showBottomNav()
+                    hideKeyboard()
                 }
-                R.id.votedFragment -> showBottomNav()
                 else -> hideBottomNav()
             }
         }
@@ -45,6 +48,4 @@ class MainActivity : AppCompatActivity() {
         bottomNav.visibility = View.GONE
         fang.visibility = View.GONE
     }
-
-
 }
