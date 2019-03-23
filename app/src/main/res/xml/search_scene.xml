@@ -7,6 +7,38 @@
             motion:constraintSetEnd="@+id/end"
             motion:duration="500">
 
+        <KeyFrameSet>
+            <KeyAttribute
+                    motion:target="@id/searchContainer"
+                    motion:framePosition="0"
+                    android:alpha="1">
+
+            </KeyAttribute>
+            <KeyAttribute
+                    motion:target="@id/searchContainer"
+                    motion:framePosition="25"
+                    android:rotation="90"
+                    android:alpha="0.8">
+
+            </KeyAttribute>
+            <KeyAttribute
+                    motion:target="@id/searchContainer"
+                    motion:framePosition="50"
+                    android:rotation="90"
+                    android:alpha="0.5">
+
+            </KeyAttribute>
+            <KeyAttribute
+                    motion:target="@id/searchContainer"
+                    motion:framePosition="100"
+                    android:rotation="90"
+                    android:alpha="0"
+                    android:visibility="gone"
+                    motion:transitionEasing="decelerate">
+
+            </KeyAttribute>
+        </KeyFrameSet>
+
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
@@ -27,9 +59,10 @@
                 android:id="@+id/searchContainer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:visibility="gone"
-                motion:layout_constraintStart_toEndOf="parent"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
+                motion:visibility="gone"
+                motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintBottom_toBottomOf="parent"/>
     </ConstraintSet>
 

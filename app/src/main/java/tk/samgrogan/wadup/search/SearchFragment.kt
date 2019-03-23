@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import tk.samgrogan.wadup.api.models.SearchWad
+import tk.samgrogan.wadup.common.hide
 import tk.samgrogan.wadup.common.hideKeyboard
-
-
+import tk.samgrogan.wadup.common.show
 
 
 class SearchFragment : Fragment() {
@@ -68,6 +68,7 @@ class SearchFragment : Fragment() {
                 override fun onTransitionCompleted(p0: MotionLayout?, currentId: Int) {
                     if (currentId == tk.samgrogan.wadup.R.id.end) {
                         searchFAB.show()
+                        searchContainer.hide(true)
                     }
                 }
                 // More code here
@@ -104,6 +105,7 @@ class SearchFragment : Fragment() {
 
     private fun fabCoord() {
         searchFAB.hide()
+        searchContainer.show()
         motion.transitionToStart()
         (searchRecycler.adapter as SearchRecyclerAdapter).clearData()
     }
