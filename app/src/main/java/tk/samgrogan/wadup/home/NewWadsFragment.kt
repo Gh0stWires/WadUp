@@ -51,19 +51,6 @@ class NewWadsFragment : Fragment() {
 
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        listState = wadRecycler.layoutManager?.onSaveInstanceState()
-        outState.putParcelable(LIST_STATE, listState)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        if (savedInstanceState != null) {
-            listState = savedInstanceState.getParcelable(LIST_STATE)
-        }
-    }
-
     fun observe() {
 
         wadModel.getWadList().observe(this,

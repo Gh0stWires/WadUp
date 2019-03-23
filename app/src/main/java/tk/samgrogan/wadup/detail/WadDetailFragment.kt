@@ -49,7 +49,7 @@ class WadDetailFragment : Fragment() {
             titleDetail.text = it.title
             detailItem.add(DetailItem("filename:", it.filename))
             detailItem.add(DetailItem("author:", it.author))
-            detailItem.add(DetailItem("url:", it.idgamesurl))
+            detailItem.add(DetailItem("url:", createUrl(it.idgamesurl)))
             detailItem.add(DetailItem("size:", it.size.toString()))
             detailItem.add(DetailItem("credits:", it.credits.toString()))
             detailItem.add(DetailItem("base:", it.base))
@@ -61,6 +61,15 @@ class WadDetailFragment : Fragment() {
         val adapter = context?.let { DetailArrayAdapter(it, R.layout.detail_item, detailItem) }
         details.adapter = adapter
 
+    }
+
+    fun createUrl(base: String): String {
+        val halfUrl = base.substringAfter("//")
+        return BASE_DOWNLOAD_URL + halfUrl
+    }
+
+    companion object {
+        const val BASE_DOWNLOAD_URL = "http://ftp.mancubus.net/pub/idgames/"
     }
 
 }
