@@ -29,6 +29,23 @@
                 app:enterAnim="@anim/slide_in_left"
                 app:exitAnim="@anim/slide_out"
                 />
+        <action
+            android:id="@+id/action_wadDetailFragment_to_subDetailFragment"
+            app:destination="@+id/subDetailFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+            <argument
+                android:name="detailTitle"
+                app:argType="string" />
+            <argument
+                android:name="detailBody"
+                app:argType="string" />
+            <argument
+                android:name="id"
+                app:argType="string" />
+        </action>
     </fragment>
     <fragment android:id="@+id/votedFragment" android:name="tk.samgrogan.wadup.votes.VotedFragment"
               android:label="fragment_voted" tools:layout="@layout/fragment_voted">
@@ -50,6 +67,23 @@
                 app:enterAnim="@anim/slide_in"
                 app:exitAnim="@anim/slide_out">
             <argument android:name="id" app:argType="string"/>
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/subDetailFragment"
+        android:name="tk.samgrogan.wadup.detail.SubDetailFragment"
+        android:label="fragment_sub_detail"
+        tools:layout="@layout/fragment_sub_detail" >
+        <action
+            android:id="@+id/action_subDetailFragment_to_wadDetailFragment"
+            app:destination="@id/wadDetailFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_in_left" >
+            <argument
+                android:name="id"
+                app:argType="string" />
         </action>
     </fragment>
 </navigation>

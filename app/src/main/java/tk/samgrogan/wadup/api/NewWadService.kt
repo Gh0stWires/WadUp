@@ -1,6 +1,5 @@
 package tk.samgrogan.wadup.api
 
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 import tk.samgrogan.wadup.api.models.SearchWad
@@ -10,15 +9,15 @@ import tk.samgrogan.wadup.api.models.WadVotes
 
 interface NewWadService {
     @GET("api.php?action=latestfiles&limit=10&out=json")
-    fun listRepos(): Call<Wad>
+    suspend fun listRepos(): Wad
 
     @GET("api.php?action=get")
-    fun getWadDetail(@Query("id") id: String?, @Query("out") out: String = "json"): Call<WadDetail>
+    suspend fun getWadDetail(@Query("id") id: String?, @Query("out") out: String = "json"): WadDetail
 
     @GET("api.php?action=latestvotes&limit=10&out=json")
-    fun getHighestVotes(): Call<WadVotes>
+    suspend fun getHighestVotes(): WadVotes
 
     @GET("api.php?action=search")
-    fun searchWads(@Query("query") query: String, @Query("type") type: String = "title", @Query("sort") sort: String = "rating", @Query("out") out: String = "json" ): Call<SearchWad>
+    suspend fun searchWads(@Query("query") query: String, @Query("type") type: String = "title", @Query("sort") sort: String = "rating", @Query("out") out: String = "json" ): SearchWad
 }
 

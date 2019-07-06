@@ -51,7 +51,6 @@ class SearchRecyclerAdapter(val listener: (SearchWad.Content.File) -> Unit): Rec
         val author = itemView.author
         val description = itemView.description
         val rating = itemView.rating
-
         val authorLabel = itemView.authorLabel
     }
 }

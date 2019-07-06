@@ -39,12 +39,12 @@ class SearchFragment : Fragment() {
         }
         searchRecycler.layoutManager = LinearLayoutManager(context)
         searchRecycler.adapter = SearchRecyclerAdapter {
-            NavHostFragment.findNavController(this).navigate(SearchFragmentDirections.ActionSearchFragmentToWadDetailFragment(it.id.toString()))
+            NavHostFragment.findNavController(this).navigate(SearchFragmentDirections.actionSearchFragmentToWadDetailFragment(it.id.toString()))
         }
 
         searchButton.setOnClickListener {
-            if (queryBox.text != null) {
-                search()
+            if (!queryBox.text.isNullOrEmpty()) {
+                hideKeyboard()
                 motion.transitionToEnd()
             }
         }
@@ -67,11 +67,11 @@ class SearchFragment : Fragment() {
 
                 override fun onTransitionCompleted(p0: MotionLayout?, currentId: Int) {
                     if (currentId == tk.samgrogan.wadup.R.id.end) {
+                        search()
                         searchFAB.show()
                         searchContainer.hide(true)
                     }
                 }
-                // More code here
             }
         )
 
@@ -87,14 +87,14 @@ class SearchFragment : Fragment() {
     }
 
     private fun observe(query: String) {
-        searchViewModel.repo.searchWads(query).observe(this, androidx.lifecycle.Observer<SearchWad> {
+        searchViewModel.query = query
+        searchViewModel.searchWad.observe(this, androidx.lifecycle.Observer<SearchWad> {
             (searchRecycler.adapter as SearchRecyclerAdapter).swapData(it.content.file)
         })
     }
 
     private fun search() {
         observe(queryBox.text.toString())
-        hideKeyboard()
     }
 
     private fun fabListener() {
