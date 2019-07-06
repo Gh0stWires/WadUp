@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar.Bridge">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -17,6 +17,17 @@
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">48sp</item>
         <item name="android:textColor">#ffff</item>
+    </style>
+
+    <style name="FAB" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="android:fontFamily">@font/doom</item>
+        <item name="iconSize">28dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="icon">@drawable/ic_save</item>
+        <item name="iconTint">@color/white</item>
+        <item name="shapeAppearance">@style/FabShape</item>
+        <item name="backgroundTint">@color/colorPrimary</item>
     </style>
 
     <style name="Title">
@@ -57,6 +68,14 @@
 
     <style name="Body.White.DOS" parent="Body.White">
         <item name="android:fontFamily">@font/dosfont</item>
+    </style>
+
+    <style name="FabShape" parent="ShapeAppearance.MaterialComponents">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSizeTopLeft">12dp</item>
+        <item name="cornerSizeTopRight">12dp</item>
+        <item name="cornerSizeBottomLeft">12dp</item>
+        <item name="cornerSizeBottomRight">12dp</item>
     </style>
 
 </resources>

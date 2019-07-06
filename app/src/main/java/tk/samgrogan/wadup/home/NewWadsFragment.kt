@@ -12,7 +12,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_new_wads.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import tk.samgrogan.wadup.api.Status
 import tk.samgrogan.wadup.api.models.Wad
+import tk.samgrogan.wadup.api.resources.NewWadResource
 
 
 class NewWadsFragment : Fragment() {
@@ -43,26 +45,28 @@ class NewWadsFragment : Fragment() {
         wadRecycler.layoutManager = LinearLayoutManager(context)
         wadRecycler.adapter = NewWadRecyclerAdapter {
             //val action = NewWadsFragmentDirections.actionNewWadsFragmentToWadDetailFragment(it.id.toString())
-            NavHostFragment.findNavController(this).navigate(NewWadsFragmentDirections.ActionNewWadsFragmentToWadDetailFragment(it.id.toString()))
+            NavHostFragment.findNavController(this).navigate(NewWadsFragmentDirections.actionNewWadsFragmentToWadDetailFragment(it.id.toString()))
         }
         observe()
-
-
-
     }
 
     fun observe() {
+        wadModel.wadList.observe(this,
+            androidx.lifecycle.Observer<NewWadResource<List<Wad.Content.File>>> {
 
-        wadModel.getWadList().observe(this,
-            androidx.lifecycle.Observer<Wad> {
-                (wadRecycler.adapter as NewWadRecyclerAdapter).swapData(it.content.file)
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        it.data?.let { it1 -> (wadRecycler.adapter as NewWadRecyclerAdapter).swapData(it1) }
+                        progress.visibility = View.GONE
+                    }
+                    Status.ERROR -> {
+                        networkError.visibility = View.VISIBLE
+                    }
+                    Status.LOADING -> {
+                        progress.visibility = View.VISIBLE
+                    }
+                }
             })
 
-
-    }
-
-
-    companion object {
-        val LIST_STATE = "list-state"
     }
 }
