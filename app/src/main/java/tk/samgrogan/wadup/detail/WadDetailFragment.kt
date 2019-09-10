@@ -16,6 +16,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.amyu.stack_card_layout_manager.StackCardLayoutManager
 import kotlinx.android.synthetic.main.fragment_wad_detail.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import tk.samgrogan.wadup.api.Status
 import tk.samgrogan.wadup.api.models.WadDetail
 import tk.samgrogan.wadup.common.addNotEmpty
 
@@ -40,7 +41,6 @@ class WadDetailFragment : Fragment() {
                 this.title = "wad detail"
             }
         }
-        progress.visibility = View.VISIBLE
         download.setOnClickListener {
             startDownload()
         }
@@ -59,14 +59,24 @@ class WadDetailFragment : Fragment() {
     fun observe() {
         detailModel.id = arguments?.getString("id").toString()
         detailModel.wadDetail.observe(viewLifecycleOwner, Observer {
-            detailSetup(it)
-            downloadUrl = createUrl(it.content.idgamesurl)
-            progress.visibility = View.GONE
+            when (it.status) {
+                Status.SUCCESS -> {
+                    it.data?.let { it1 -> detailSetup(it1) }
+                    downloadUrl = it.data?.idgamesurl?.let { it1 -> createUrl(it1) }.toString()
+                    progress.visibility = View.GONE
+                }
+                Status.ERROR -> {
+                    networkError.visibility = View.VISIBLE
+                }
+                Status.LOADING -> {
+                    progress.visibility = View.VISIBLE
+                }
+            }
         })
     }
 
-    fun detailSetup(wad: WadDetail) {
-        wad.content.let {
+    fun detailSetup(wad: WadDetail.Content) {
+        wad.let {
             titleDetail.text = it.title
             detailItem.addNotEmpty(DetailItem("author", it.author))
             detailItem.addNotEmpty(DetailItem("credits", it.credits.toString()))
@@ -106,7 +116,7 @@ class WadDetailFragment : Fragment() {
         mRqRequest.setVisibleInDownloadsUi(true)
         mRqRequest.setMimeType("application/zip")
         //mRqRequest.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "")
-        val downloadId = mManager.enqueue(mRqRequest)
+        mManager.enqueue(mRqRequest)
     }
 
     companion object {

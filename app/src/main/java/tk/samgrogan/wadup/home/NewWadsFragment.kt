@@ -8,13 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_new_wads.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import tk.samgrogan.wadup.api.Status
-import tk.samgrogan.wadup.api.models.Wad
-import tk.samgrogan.wadup.api.resources.NewWadResource
 
 
 class NewWadsFragment : Fragment() {
@@ -52,7 +51,7 @@ class NewWadsFragment : Fragment() {
 
     fun observe() {
         wadModel.wadList.observe(this,
-            androidx.lifecycle.Observer<NewWadResource<List<Wad.Content.File>>> {
+            Observer{
 
                 when (it.status) {
                     Status.SUCCESS -> {
