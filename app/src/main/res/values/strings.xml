@@ -17,4 +17,5 @@
     <string name="details_editor_s">editor(s):</string>
     <string name="detail_bugs">bugs:</string>
     <string name="network_check_message">Lan is not hooked up right man...check your network connection</string>
+    <string name="network_check_detail">Ethernet cable come unplugged? Check your network dude</string>
 </resources>

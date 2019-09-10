@@ -8,12 +8,13 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import tk.samgrogan.wadup.api.models.SearchWad
+import tk.samgrogan.wadup.api.Status
 import tk.samgrogan.wadup.common.hide
 import tk.samgrogan.wadup.common.hideKeyboard
 import tk.samgrogan.wadup.common.show
@@ -88,8 +89,21 @@ class SearchFragment : Fragment() {
 
     private fun observe(query: String) {
         searchViewModel.query = query
-        searchViewModel.searchWad.observe(this, androidx.lifecycle.Observer<SearchWad> {
-            (searchRecycler.adapter as SearchRecyclerAdapter).swapData(it.content.file)
+        searchViewModel.searchWad.observe(this, Observer{
+            //(searchRecycler.adapter as SearchRecyclerAdapter).swapData(it.content.file)
+
+            when (it.status) {
+                Status.SUCCESS -> {
+                    it.data?.let { it1 -> (searchRecycler.adapter as SearchRecyclerAdapter).swapData(it1) }
+                    progress.visibility = View.GONE
+                }
+                Status.LOADING -> {
+                    progress.visibility = View.VISIBLE
+                }
+                Status.ERROR -> {
+                    networkError.visibility = View.VISIBLE
+                }
+            }
         })
     }
 
