@@ -34,6 +34,10 @@ class VotesRecyclerAdapter(val listener: (WadVotes.Content.Vote) -> Unit): Recyc
         notifyDataSetChanged()
     }
 
+    fun clearData() {
+        wads = listOf()
+    }
+
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val title = itemView.title
         val author = itemView.author

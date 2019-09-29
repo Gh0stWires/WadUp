@@ -33,6 +33,10 @@ class NewWadRecyclerAdapter(val listener: (Wad.Content.File) -> Unit): RecyclerV
         notifyDataSetChanged()
     }
 
+    fun clearData() {
+        wads = listOf()
+    }
+
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val title = itemView.title
         val author = itemView.author
