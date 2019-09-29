@@ -18,7 +18,7 @@ import tk.samgrogan.wadup.api.Status
 
 class VotedFragment : Fragment() {
 
-    val votedViewModel: VotedViewModel by viewModel()
+    private val votedViewModel: VotedViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,8 +34,6 @@ class VotedFragment : Fragment() {
                 setDisplayHomeAsUpEnabled(false)
                 this.title = "Wad Up"
             }
-            //val imageViewTarget = DrawableImageViewTarget(progress)
-            //Glide.with(this).load(R.drawable.pinky).into(imageViewTarget)
         }
 
         progress.visibility = View.VISIBLE
@@ -45,6 +43,7 @@ class VotedFragment : Fragment() {
         }
 
         observe()
+        refreshListener()
     }
 
     private fun observe() {
@@ -53,16 +52,26 @@ class VotedFragment : Fragment() {
                 Status.SUCCESS -> {
                     it.data?.let { it1 -> (votedRecycler.adapter as VotesRecyclerAdapter).swapData(it1) }
                     progress.visibility = View.GONE
+                    networkError.visibility = View.GONE
+                    votedRefresh.isRefreshing = false
                 }
                 Status.ERROR -> {
                     networkError.visibility = View.VISIBLE
+                    votedRefresh.isRefreshing = false
+                    (votedRecycler.adapter as VotesRecyclerAdapter).clearData()
                 }
                 Status.LOADING -> {
                     progress.visibility = View.VISIBLE
+                    votedRefresh.isRefreshing = false
                 }
             }
         })
     }
 
+    private fun refreshListener() {
+        votedRefresh.setOnRefreshListener {
+            votedViewModel.refreshData()
+        }
+    }
 
 }
