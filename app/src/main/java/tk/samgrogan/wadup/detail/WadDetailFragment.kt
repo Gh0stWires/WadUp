@@ -6,6 +6,7 @@ import android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -116,11 +117,11 @@ class WadDetailFragment : Fragment() {
         mRqRequest.setVisibleInDownloadsUi(true)
         mRqRequest.setMimeType("application/zip")
         //mRqRequest.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "")
-        mManager.enqueue(mRqRequest)
+        val downloadId = mManager.enqueue(mRqRequest)
     }
 
     companion object {
-        const val BASE_DOWNLOAD_URL = "http://ftp.mancubus.net/pub/idgames/"
+        const val BASE_DOWNLOAD_URL = "https://www.quaddicted.com/files/idgames/"
     }
 
 }

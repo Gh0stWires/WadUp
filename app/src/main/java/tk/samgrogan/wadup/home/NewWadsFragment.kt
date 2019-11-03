@@ -1,6 +1,7 @@
 package tk.samgrogan.wadup.home
 
 
+import android.Manifest
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
@@ -15,6 +16,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.android.synthetic.main.fragment_new_wads.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import tk.samgrogan.wadup.api.Status
+import android.Manifest.permission_group.CONTACTS
+import com.androidisland.ezpermission.EzPermission
+
+
 
 
 class NewWadsFragment : Fragment() {
@@ -38,6 +43,17 @@ class NewWadsFragment : Fragment() {
         wadRecycler.adapter = NewWadRecyclerAdapter {
             //val action = NewWadsFragmentDirections.actionNewWadsFragmentToWadDetailFragment(it.id.toString())
             NavHostFragment.findNavController(this).navigate(NewWadsFragmentDirections.actionNewWadsFragmentToWadDetailFragment(it.id.toString()))
+        }
+
+        context?.let {
+            EzPermission.with(it)
+                .permissions(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+                .request { granted, denied, permanentlyDenied ->
+                    //Here you can check results...
+                }
         }
         observe()
         refreshListener()
@@ -71,5 +87,9 @@ class NewWadsFragment : Fragment() {
         homeRefresh.setOnRefreshListener {
             wadModel.refreshData()
         }
+    }
+
+    companion object {
+        const val REQUEST_CODE_SINGLE = 1022
     }
 }
